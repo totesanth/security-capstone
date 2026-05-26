@@ -1,0 +1,97 @@
+# ============================================================
+# FortiGate Advanced Splunk Correlation Rules - Group 15
+# Source: FortiGate FG-Group15-A (7.2.13) + FG-Group15-B (7.0)
+# Index: fortigate | Sourcetype: fortigate:log
+# ============================================================
+
+
+# ── RULE 1: UDP Flood Attack Detected ───────────────────────
+# Triggers when FortiGate logs a UDP flood anomaly event (>10 occurrences in 5 min)
+
+index=fortigate sourcetype="fortigate:log" subtype=anomaly attack="udp_flood" action=clear_session
+| bucket _time span=5m
+| stats count by _time, src_ip, attack, action
+| where count > 10
+| eval severity="CRITICAL", description="UDP Flood from " . src_ip . " - " . count . " events in 5 min"
+| table _time, src_ip, attack, action, count, severity, description
+
+
+# ── RULE 2: Brute Force Admin Login ─────────────────────────
+# Multiple failures followed by a success
+
+index=fortigate sourcetype="fortigate:log" subtype=system (action="login" OR action="login-failed")
+| bucket _time span=10m
+| stats count(eval(action="login-failed")) AS failures,
+        count(eval(action="login")) AS successes
+        by _time, user, srcip
+| where failures >= 5 AND successes >= 1
+| eval severity="HIGH", description="Possible brute force: " . failures . " failures then login from " . srcip
+| table _time, user, srcip, failures, successes, severity, description
+
+
+# ── RULE 3: High Volume Policy Deny ─────────────────────────
+# Possible reconnaissance or scanning
+
+index=fortigate sourcetype="fortigate:log" type=traffic action=deny
+| bucket _time span=5m
+| stats count by _time, srcip, dstip
+| where count > 200
+| eval severity="HIGH", description="Possible port scan from " . srcip . " to " . dstip . " (" . count . " denies)"
+| table _time, srcip, dstip, count, severity, description
+
+
+# ── RULE 4: VPN Tunnel Down + Rapid Reconnect ───────────────
+# Tunnel flapping / unstable VPN behavior
+
+index=fortigate sourcetype="fortigate:log" type=event subtype=vpn action=tunnel-down
+| bucket _time span=15m
+| stats count by _time, tunneltype, remip, locip
+| where count > 3
+| eval severity="MEDIUM", description="VPN tunnel flapping: " . tunneltype . " from " . remip . " (" . count . " drops in 15 min)"
+| table _time, tunneltype, remip, locip, count, severity, description
+
+
+# ── RULE 5: FortiCloud Activation Failure Spike ─────────────
+# Repeated FortiCloud activation failure detection
+
+index=fortigate sourcetype="fortigate:log" subtype=system "FortiCloud service activation failed"
+| bucket _time span=30m
+| stats count by _time, devname
+| where count > 5
+| eval severity="MEDIUM", description="FortiCloud activation failing repeatedly on " . devname . " (" . count . " times in 30 min)"
+| table _time, devname, count, severity, description
+
+
+# ── RULE 6: External DoS Anomaly ────────────────────────────
+# Non-RFC1918 source triggers flood/scan behavior
+
+index=fortigate sourcetype="fortigate:log" subtype=anomaly
+  (attack="icmp_flood" OR attack="syn_flood" OR attack="udp_flood" OR attack="tcp_port_scan")
+| where NOT match(src_ip, "^10\\.") AND NOT match(src_ip, "^192\\.168\\.") AND NOT match(src_ip, "^172\\.(1[6-9]|2[0-9]|3[01])\\.")
+| bucket _time span=5m
+| stats count by _time, src_ip, attack, action
+| eval severity="CRITICAL", description="External DoS attack: " . attack . " from " . src_ip
+| table _time, src_ip, attack, action, count, severity, description
+
+
+# ── RULE 7: Lateral Movement Suspected ──────────────────────
+# Internal-to-internal denied traffic spike
+
+index=fortigate sourcetype="fortigate:log" type=traffic action=deny
+| where match(srcip, "^192\\.168\\.") AND match(dstip, "^192\\.168\\.")
+| bucket _time span=10m
+| stats count by _time, srcip, dstip, dstport
+| where count > 50
+| eval severity="HIGH", description="Lateral movement suspected: " . srcip . " -> " . dstip . ":" . dstport . " denied " . count . " times"
+| table _time, srcip, dstip, dstport, count, severity, description
+
+
+# ── RULE 8: Multi-Vector Attack ─────────────────────────────
+# Same source triggers multiple anomaly types in a short time
+
+index=fortigate sourcetype="fortigate:log" subtype=anomaly
+| bucket _time span=10m
+| stats dc(attack) AS attack_types, values(attack) AS attacks by _time, src_ip
+| where attack_types >= 2
+| eval severity="CRITICAL", description="Multi-vector attack from " . src_ip . ": " . attacks
+| table _time, src_ip, attack_types, attacks, severity, description

@@ -28,8 +28,6 @@ The network utilizes a subnetted IP addressing scheme separating core functions:
 This setup utilizes two different firewalls to secure the network edge and internal segments.
 
 **Site 1: FortiGate (Group 15-A)**
-* [FortiGate Configuration Backup (Raw)](FG-Group15-A_7-2_1762_202605261026.conf)
-* [FortiGate Configuration (YAML)](FG-Group15-A_7-2_1762_202605261026.conf.yaml)
 * ![Site 2 Firewall Policies](images/site2firewallpolicies.png)
 
 **Site 2: [Insert Second Vendor - e.g., Palo Alto / Checkpoint]**
@@ -106,3 +104,8 @@ To validate the security posture and monitoring capabilities, controlled attacks
 > **[TODO: Insert screenshot of the Brute Force tool (e.g., Hydra) running]**
 > **Splunk Detection:**
 > **[TODO: Insert screenshot showing Splunk alerting on multiple failed login attempts and explain the findings]**
+
+
+### 6. Fortigate Configuration Files Sanitized 
+* [FortiGate Configuration Backup (Raw)](FG-Group15-A_7-2_1762_202605261026.conf)
+* [FortiGate Configuration (YAML)](FG-Group15-A_7-2_1762_202605261026.conf.yaml)

@@ -66,7 +66,6 @@ Internal services hosted within the servers.
   Website
   ![apache](images/web_server_connected.png)
 
-
 ---
 
 ## Centralized Logging & Splunk
@@ -83,35 +82,38 @@ All network components (Firewalls, Servers, VPNs) are configured to forward logs
   Apache on UDP port 5515
   ![Apache Syslog](images/Apachesyslog.png)
 
-### Splunk Dashboards
-* ****
- Fortigate Syslogs 
-![Fortigate Syslogs](images/FortigateSyslogs.png)
+### Splunk Logs
+* **Syslogs in Splunk:**
+Fortigate Syslogs
+Site 1 
+![Fortigate Syslogs](images/FortigateAlogs.png)
+Site 2
+![Fortigate Syslogs](images/VPNlogs.png)
+VPN Logs
+![Fortigate Syslogs](images/SSHlogs.png)
 SSH Syslogs 
-![Fortigate Syslogs](images/SSH_Syslogs.png)
+![Fortigate Syslogs](images/SSHlogs.png)
 Apache2 Syslogs (Web Server)
-![Apache2 Syslogs](images/Apache2Syslogs.png)
+![Apache2 Syslogs](images/apache2logs.png)
 ---
 
 
 
-
 ## Attack Simulation & Detection
-To validate the security posture and monitoring capabilities, controlled attacks were simulated using a Kali Linux VM.
+To validate the security and monitoring capabilities, controlled attacks were simulated using a Kali Linux VM.
 ### DoS Protection
-Before an attack is made a DOS policy is made to block unwanted traffic and totell the firewall to drop uneeded malicous traffic, and so that it does not crash when being floodeed
+Before an attack is made a DOS policy is made to block unwanted traffic and to tell the firewall to drop uneeded malicous traffic, and so that it does not crash when being floodeed
 ![DOS Policy](images/dospolicy.png)
 ![DOS Protect 1](images/dosprotect1.png)
 ![DOS Protect 2](images/dosprotect2.png)
 
-
-### Port Scan (Nmap)
+### Nmap Port Scan 
 > **[TODO: Insert screenshot of the Nmap scan being executed from Kali]**
 > **Splunk Detection:** > **[TODO: Insert screenshot showing how Splunk detected the Nmap scan and briefly explain the findings]**
 
 ### Brute Force Attack (SSH/RDP)
 
 
-### 6. Fortigate Configuration Files Sanitized 
+### Fortigate Configuration Files Sanitized 
 * [FortiGate Configuration Backup (Raw)](FG-Group15-A_7-2_1762_202605261026.conf)
 * [FortiGate Configuration (YAML)](FG-Group15-A_7-2_1762_202605261026.conf.yaml)

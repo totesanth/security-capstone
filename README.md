@@ -108,12 +108,21 @@ Before an attack is made a DOS policy is made to block unwanted traffic and to t
 ![DOS Protect 2](images/dosprotect2.png)
 
 ### Nmap Port Scan 
-> **[TODO: Insert screenshot of the Nmap scan being executed from Kali]**
-> **Splunk Detection:** > **[TODO: Insert screenshot showing how Splunk detected the Nmap scan and briefly explain the findings]**
+![NMAP](images/NMAPAttack.png)
+![NMAP](images/Portscandash.png)
+![NMAP](images/.png) fix this 
 
-### Brute Force Attack (SSH/RDP)
+### ICMP Attack 
+![ICMP](images/ICMPFlood.png)
+![ICMP](images/icmpfloodfortigate.png)
+![ICMP](images/icmpfloodsplunk.png) 
 
+### UDP Attack 
+![UDP](images/UDPFlood.png)
+![UDP](images/udpfloodfortigate.png)
+![UDP](images/udpfloodsplunk.png) 
 
 ### Fortigate Configuration Files Sanitized 
-* [FortiGate Configuration Backup (Raw)](FG-Group15-A_7-2_1762_202605261026.conf)
-* [FortiGate Configuration (YAML)](FG-Group15-A_7-2_1762_202605261026.conf.yaml)
+* Fortigate A
+[FortiGate Configuration Backup (Raw)](FG-Group15-A_7-2_1762_202605261026.conf)
+* Fortigate B

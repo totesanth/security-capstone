@@ -44,7 +44,7 @@ Client Tunnel Config
 Credentials for VPN User
 ![VPN User](images/VPNuser.png)
 Connection in Windows 
-
+![VPN User](images/VPNconnected.png)
 Connection Properties 
 ![Connection Propertie](images/Windows_VPN_Connection_Properties.png)
 
@@ -75,7 +75,7 @@ All network components (Firewalls, Servers, VPNs) are configured to forward logs
 ### Syslog Configuration
 * **FortiGate:**
   Site 1 on UDP port 514
-  ![Fortigate Syslogs](images/Site1syslogsettings.jpg)
+  ![Fortigate Syslogs](images/Site1syslogsettings.png)
   Site 2 on UDP port 514
   ![Site 2 Syslog Fortigate](images/site2syslogfortigate.png)
 * **Apache & SSH Server:**
@@ -126,3 +126,17 @@ Before an attack is made a DOS policy is made to block unwanted traffic and to t
 * Fortigate A
 [FortiGate Configuration Backup (Raw)](FG-Group15-A_7-2_1762_202605261026.conf)
 * Fortigate B
+[FortiGate Configuration Backup (Raw)](FG-Group15-B_7-0_0667_202605261300.conf)
+
+## Extra Items
+--
+Fortigate Automation
+* [Fortigate Automation](fortigate_automation.py)
+* [Fortigate Automation](Fortigate_automation.txt)
+--
+Splunk Rules
+* [splunk](fortigate_splunk_correlation_rules.spl)
+* [splunk](fortigate_splunk_correlation_rules)
+--
+Integration
+* Did not implement   

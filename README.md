@@ -75,7 +75,7 @@ All network components (Firewalls, Servers, VPNs) are configured to forward logs
 ### Syslog Configuration
 * **FortiGate:**
   Site 1 on UDP port 514
-  ![Fortigate Syslogs](images/SiteA_syslog_config.jpg)
+  ![Fortigate Syslogs](images/Site1syslogsettings.jpg)
   Site 2 on UDP port 514
   ![Site 2 Syslog Fortigate](images/site2syslogfortigate.png)
 * **Apache & SSH Server:**

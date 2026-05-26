@@ -40,7 +40,7 @@ Site 2 Tunnel Configuration
 Tunnel Up 
 ![Client Tunnel Up](images/Remote_Access_Tunnel.png)
 Client Tunnel Config
-![Client Config](imagesClient_Tunnel.png)
+![Client Config](images/Client_Tunnel.png)
 Credentials for VPN User
 ![VPN User](images/VPNuser.png)
 Connection in Windows 
@@ -57,36 +57,53 @@ Internal services hosted within the servers.
 * **SSH Server**
   ![Site 2 SSH Status](images/Site2SSHstatus.png)
   ![SSH IP](images/ssh_ip.png)
+* **VPN Connection to Servers**
+--
+  Pings
+  ![Pings](images/VPN_pinging_servers.png)
+  SSH
+  ![SSH](images/SSH_Connected.png)
+  Website
+  ![apache](images/web_server_connected.png)
 
-### 2.3 DoS Protection
+
+---
+
+## Centralized Logging & Splunk
+
+All network components (Firewalls, Servers, VPNs) are configured to forward logs to a centralized Splunk instance for monitoring and correlation.
+
+### Syslog Configuration
+* **FortiGate:**
+  Site 1 on UDP port 514
+  ![Fortigate Syslogs](images/SiteA_syslog_config.jpg)
+  Site 2 on UDP port 514
+  ![Site 2 Syslog Fortigate](images/site2syslogfortigate.png)
+* **Apache & SSH Server:**
+  Apache on UDP port 5515
+  ![Apache Syslog](images/Apachesyslog.png)
+
+### Splunk Dashboards
+* ****
+ Fortigate Syslogs 
+![Fortigate Syslogs](images/FortigateSyslogs.png)
+SSH Syslogs 
+![Fortigate Syslogs](images/SSH_Syslogs.png)
+Apache2 Syslogs (Web Server)
+![Apache2 Syslogs](images/Apache2Syslogs.png)
+---
+
+
+
+
+## Attack Simulation & Detection
+To validate the security posture and monitoring capabilities, controlled attacks were simulated using a Kali Linux VM.
+### DoS Protection
+Before an attack is made a DOS policy is made to block unwanted traffic and totell the firewall to drop uneeded malicous traffic, and so that it does not crash when being floodeed
 ![DOS Policy](images/dospolicy.png)
 ![DOS Protect 1](images/dosprotect1.png)
 ![DOS Protect 2](images/dosprotect2.png)
 
-
----
-
-## 4. Centralized Logging & Splunk
-*(Evaluation Weight: 20%)*
-
-All network components (Firewalls, Servers, VPNs) are configured to forward logs to a centralized Splunk instance for monitoring and correlation.
-
-### 4.1 Log Generation (Syslogs)
-* **FortiGate Logs:**
-  ![Fortigate Syslogs](images/FortigateSyslogs.jpg)
-  ![Site 2 Syslog Fortigate](images/site2syslogfortigate.png)
-* **Apache & Server Logs:**
-  ![Apache Syslog](images/Apachesyslog.png)
-  ![Apache2 Syslogs](images/Apache2Syslogs.png)
-
-### Splunk Dashboards
-
-
----
-
-## Attack Simulation & Detection
-
-To validate the security posture and monitoring capabilities, controlled attacks were simulated using Kali Linux.
 
 ### Port Scan (Nmap)
 > **[TODO: Insert screenshot of the Nmap scan being executed from Kali]**

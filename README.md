@@ -4,7 +4,7 @@
 
 ## Project Objective
 This repository contains the full documentation, configuration files, and verification for the design and implementation of a secure enterprise network. 
-The infrastructure connects two branch offices and remote users, featuring Fortigate firewalls, centralized Splunk logging, and simulated cyber attack detection.
+The infrastructure connects two branch offices and remote users, featuring two Fortigate firewalls, centralized Splunk logging, and simulated cyber attack detection.
 
 ---
 
@@ -20,35 +20,50 @@ The network utilizes a subnetted IP addressing scheme:
 * **DMZ:** `Site 1: 192.168.15.20, Site 2: 192.168.10.30`
 * **Management:** `Site 1: 192.168.15.10/24, Site 2: 192.168.10.10/24`
 * **Site to Site:** `Site 1: 1.1.15.1/24, Site 2: 1.1.15.2/24`
+* **Splunk Enterprise:** `206.206.206.12/24`
 
 ---
 ## VPN Implementation
+This section includes the site to site VPN between the two sites, remote client VPN information
+
+
 
 ### Site-to-Site VPN 
-#### IPsec tunnel established between the FortiGate firewalls.
+IPsec tunnel established between the FortiGate firewalls.
 
-Site 1 Tunnel Up
+
+* **Site 1 Tunnel Up**
 ![Site 1 Tunnel Up](images/Site1TunUP.png)
-Site 1 Tunnel Configuration
+
+* **Site 1 Tunnel Configuration**
 ![Site 1 Tunnel Up](images/VPNTunnelSite1.png)
-Site 2 Tunnel Up
+
+* **Site 2 Tunnel Up**
 ![Site 2 Tunnel Up](images/Site2TunnelUp.png)
-Site 2 Tunnel Configuration
+
+* **Site 2 Tunnel Configuration**
 ![Site 2 Tunnel Config](images/Site2TunnelConfig.png)
 ---
 ### Client-Based VPN (Remote Access)
-Tunnel Up 
+The remote client tunnel uses the L2P2 protocol, which is configured in windows settings 
+* **Client Tunnel Up**
 ![Client Tunnel Up](images/Remote_Access_Tunnel.png)
-Client Tunnel Config
+
+* **Client Configuration**
 ![Client Config](images/Client_Tunnel.png)
-Credentials for VPN User
+
+* **Credentials for VPN User**
 ![VPN User](images/VPNuser.png)
-Connection in Windows 
+
+* **Connection in Windows**
 ![VPN User](images/VPNconnected.png)
-Connection Properties 
+
+* **Connection Properties**
 ![Connection Propertie](images/Windows_VPN_Connection_Properties.png)
 
-### Server Deployment
+---
+
+## Server Deployment
 Internal services hosted within the servers.
 
 * **Apache Web Server**
@@ -57,43 +72,53 @@ Internal services hosted within the servers.
 * **SSH Server**
   ![Site 2 SSH Status](images/Site2SSHstatus.png)
   ![SSH IP](images/ssh_ip.png)
-* **VPN Connection to Servers**
---
-  Pings
+  
+---
+  
+  ## VPN Connection to Servers
+
+* **Pings**
   ![Pings](images/VPN_pinging_servers.png)
-  SSH
+* **SSH**
   ![SSH](images/SSH_Connected.png)
-  Website
+* **Apache2 (Webserver)**
   ![apache](images/web_server_connected.png)
 
 ---
 
 ## Centralized Logging & Splunk
 
-All network components (Firewalls, Servers, VPNs) are configured to forward logs to a centralized Splunk instance for monitoring and correlation.
+All network components (Firewalls, Servers, VPNs) are configured to forward logs to a centralized Splunk Enterprise instance for monitoring and correlation.
 
 ### Syslog Configuration
-* **FortiGate:**
-  Site 1 on UDP port 514
+* **Site 1 FortiGate A on UDP port 514**
   ![Fortigate Syslogs](images/Site1syslogsettings.png)
-  Site 2 on UDP port 514
-  ![Site 2 Syslog Fortigate](images/site2syslogfortigate.png)
-* **Apache & SSH Server:**
-  Apache on UDP port 5515
-  ![Apache Syslog](images/Apachesyslog.png)
 
+* **Site 2 FortiGate A on UDP port 514**
+  ![Site 2 Syslog Fortigate](images/site2syslogfortigate.png)
+  
+* **Apache on UDP port 5515**
+  ![Apache Syslog](images/Apachesyslog.png)
+* **SSH on UDP port 5517**
+  ![Apache Syslog](images/.png) Fix this
+
+
+  
 ### Splunk Logs
-* **Syslogs in Splunk:**
-Fortigate Syslogs
-Site 1 
+
+* **Site 1 Fortigate A Syslogs** 
 ![Fortigate Syslogs](images/FortigateAlogs.png)
-Site 2
+
+* **Site 2 Fortigate A Syslogs** 
 ![Fortigate Syslogs](images/VPNlogs.png)
-VPN Logs
+
+* **Site 1+2 VPN Syslogs**
 ![Fortigate Syslogs](images/SSHlogs.png)
-SSH Syslogs 
+
+* **SSH Syslogs**
 ![Fortigate Syslogs](images/SSHlogs.png)
-Apache2 Syslogs (Web Server)
+
+* **Apache2 Syslogs (Web Server)**
 ![Apache2 Syslogs](images/apache2logs.png)
 ---
 
@@ -102,15 +127,18 @@ Apache2 Syslogs (Web Server)
 ## Attack Simulation & Detection
 To validate the security and monitoring capabilities, controlled attacks were simulated using a Kali Linux VM.
 ### DoS Protection
-Before an attack is made a DOS policy is made to block unwanted traffic and to tell the firewall to drop uneeded malicous traffic, and so that it does not crash when being floodeed
+Before an attack is made a DOS policy is made to block unwanted traffic and to tell the firewall to drop uneeded malicous traffic, and so that it does not crash when being flooded
+
 ![DOS Policy](images/dospolicy.png)
 ![DOS Protect 1](images/dosprotect1.png)
 ![DOS Protect 2](images/dosprotect2.png)
 
+
+
 ### Nmap Port Scan 
 ![NMAP](images/NMAPAttack.png)
 ![NMAP](images/Portscandash.png)
-![NMAP](images/.png) fix this 
+![NMAP](images/nmapattacksplunk.png) 
 
 ### ICMP Attack 
 ![ICMP](images/ICMPFlood.png)
@@ -122,21 +150,25 @@ Before an attack is made a DOS policy is made to block unwanted traffic and to t
 ![UDP](images/udpfloodfortigate.png)
 ![UDP](images/udpfloodsplunk.png) 
 
+---
+
+## Configuration Files
+
 ### Fortigate Configuration Files Sanitized 
-* Fortigate A
-[FortiGate Configuration Backup (Raw)](FG-Group15-A_7-2_1762_202605261026.conf)
-* Fortigate B
-[FortiGate Configuration Backup (Raw)](FG-Group15-B_7-0_0667_202605261300.conf)
+* [Fortigate A Site 1](images/FG-Group15-A_7-2_1762_202605261026.conf)
+* [Fortigate B Site 2](images/FG-Group15-B_7-0_0667_202605261300.conf)
+
+---
 
 ## Extra Items
---
-Fortigate Automation
-* [Fortigate Automation](fortigate_automation.py)
-* [Fortigate Automation](Fortigate_automation.txt)
---
-Splunk Rules
-* [splunk](fortigate_splunk_correlation_rules.spl)
-* [splunk](fortigate_splunk_correlation_rules)
---
-Integration
-* Did not implement   
+These were bonus tasks that were listed in the scope
+### Fortigate Automation
+* [Fortigate Automation python](images/fortigate_automation.py)
+* [Fortigate Automation text file](images/Fortigate_automation.txt)
+---
+### Splunk Rules
+* [splunk file](images/fortigate_splunk_correlation_rules.spl)
+* [splunk text file](images/fortigate_splunk_correlation_rules.txt)
+---
+### Integration
+* Was not implemented with other projects    

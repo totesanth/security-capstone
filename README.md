@@ -94,11 +94,12 @@ All network components (Firewalls, Servers, VPNs) are configured to forward logs
 * **Site 1 FortiGate A on UDP port 514**
   ![Fortigate Syslogs](images/Site1syslogsettings.png)
 
-* **Site 2 FortiGate A on UDP port 514**
+* **Site 2 FortiGate B on UDP port 514**
   ![Site 2 Syslog Fortigate](images/site2syslogfortigate.png)
   
 * **Apache on UDP port 5515**
   ![Apache Syslog](images/Apachesyslog.png)
+  
 * **SSH on UDP port 5517**
   ![Apache Syslog](images/.png) Fix this
 
@@ -109,7 +110,7 @@ All network components (Firewalls, Servers, VPNs) are configured to forward logs
 * **Site 1 Fortigate A Syslogs** 
 ![Fortigate Syslogs](images/FortigateAlogs.png)
 
-* **Site 2 Fortigate A Syslogs** 
+* **Site 2 Fortigate B Syslogs** 
 ![Fortigate Syslogs](images/VPNlogs.png)
 
 * **Site 1+2 VPN Syslogs**

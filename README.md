@@ -179,7 +179,8 @@ Before attacks were executed, a DoS policy was configured to block unwanted traf
 ***
 ## Splunk Dashboard
 The Splunk dashboard provides a centralized view of security events, allowing for rapid identification of suspicious activity and correlation across multiple data sources.
-* [Splunk Dashboard PDF](images/Splunk%20Logs.pdf)
+* Select show more at the bottom of the PDF reader to see the whole document
+* [Splunk Dashboard PDF](images/network_security_capstone-2026-05-27-Final.pdf)
 
 ## Configuration Files
 The following FortiGate configuration files are included as sanitized evidence of the implemented policies and routing.

@@ -1,4 +1,5 @@
-# 4390 Enterprise Network Security & Monitoring Capstone
+# CISA 4390 
+# Enterprise Network Security & Monitoring Capstone
 *Group 15 | Anthony, Justin N, Justin W, Kelvin, Nathan, Ze*
 
 ***
@@ -30,13 +31,19 @@ The infrastructure connects two branch offices and remote users, featuring two F
 > *`Network Diagram`*
 
 ### IP Addressing Scheme
-The network utilizes a subnetted IP addressing scheme:
-* **LAN:** `Site 1: 192.168.15.0/24, Site 2: 192.168.10.0/24`
-* **DMZ:** `Site 1: 192.168.15.20, Site 2: 192.168.10.30`
-* **Management:** `Site 1: 192.168.15.10/24, Site 2: 192.168.10.10/24`
-* **Site to Site:** `Site 1: 1.1.15.1/24, Site 2: 1.1.15.2/24`
-* **Splunk Enterprise:** `206.206.206.12/24`
+The network is segmented into separate LAN, DMZ, management, and VPN networks across two sites. This structure improves security by isolating internal systems, public-facing services, and administrative devices while maintaining secure connectivity between locations.
 
+* **WAN 1 / Internet Network:** `192.168.64.0/24`
+* **Site 1 LAN:** `192.168.15.0/24`
+* **Site 2 LAN:** `192.168.10.0/24`
+* **Site 1 Apache Server (DMZ):** `192.168.15.20/24`
+* **Site 2 SSH Server (DMZ):** `192.168.10.30/24`
+* **Site 1 Management:** `192.168.15.10/24`
+* **Site 2 Management:** `192.168.10.10/24`
+* **Site-to-Site VPN (WAN 2):** `Site 1: 1.1.15.1, Site 2: 1.1.15.2`
+* **Splunk Enterprise Server:** `206.206.206.12/24`
+* **Kali Linux (Attacker):** `DHCP`
+* **Remote Access User (Client VPN):** `192.168.15.X/24`
 ***
 
 ## VPN Implementation
@@ -185,12 +192,12 @@ The following FortiGate configuration files are included as sanitized evidence o
 ## Extra Items
 These bonus tasks were completed beyond the required scope, demonstrating additional technical effort and automation.
 ### Fortigate Automation
-* [Fortigate Automation python](images/fortigate_automation.py)
-* [Fortigate Automation text file](images/Fortigate_automation.txt)
+* [Fortigate automation python](images/fortigate_automation.py)
+* [Fortigate automation text file](images/Fortigate_automation.txt)
 ***
 ### Splunk Rules
-* [splunk file](images/fortigate_splunk_correlation_rules.spl)
-* [splunk text file](images/fortigate_splunk_correlation_rules.txt)
+* [Splunk rule file](images/fortigate_splunk_correlation_rules.spl)
+* [Splunk rule text file](images/fortigate_splunk_correlation_rules.txt)
 ***
 ### Integration
 * Integration with other project groups was out of scope for this implementation.    

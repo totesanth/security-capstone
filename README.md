@@ -90,7 +90,7 @@ The remote client tunnel uses the L2TP protocol, configured in Windows Settings,
 Internal services were hosted on servers to simulate real-world enterprise workloads. 
 
 * **Apache Web Server**
-  ![Apache Status](images/Apache_Status.png)
+  ![Apache Status](images/Apache2Status.png)
   ![Apache Server IP](images/Apache_server_ip.png)
 * **SSH Server**
   ![Site 2 SSH Status](images/Site2SSHstatus.png)
@@ -123,9 +123,9 @@ All network components (firewalls, servers, VPNs) forward logs to a centralized 
   ![Apache Syslog](images/Apachesyslog.png)
   
 * **SSH on UDP port 5517**
-  ![Apache Syslog](images/.png) Fix this
+  ![Apache Syslog](images/SSHserverconfig.png) 
 
-
+***
   
 ### Splunk Logs
 
@@ -194,10 +194,10 @@ These bonus tasks were completed beyond the required scope, demonstrating additi
 ### Fortigate Automation
 * [Fortigate automation python](images/fortigate_automation.py)
 * [Fortigate automation text file](images/Fortigate_automation.txt)
-***
+
 ### Splunk Rules
 * [Splunk rule file](images/fortigate_splunk_correlation_rules.spl)
 * [Splunk rule text file](images/fortigate_splunk_correlation_rules.txt)
-***
+
 ### Integration
 * Integration with other project groups was out of scope for this implementation.    

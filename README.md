@@ -1,6 +1,21 @@
 # 4390 Enterprise Network Security & Monitoring Capstone
 *Group 15 | Anthony, Justin N, Justin W, Kelvin, Nathan, Ze*
 
+***
+
+## Table of Contents
+- [Project Objective](#project-objective)
+- [Network Design & Architecture](#network-design--architecture)
+- [VPN Implementation](#vpn-implementation)
+- [Server Deployment](#server-deployment)
+- [VPN Connection to Servers](#vpn-connection-to-servers)
+- [Centralized Logging & Splunk](#centralized-logging--splunk)
+- [Attack Simulation & Detection](#attack-simulation--detection)
+- [Splunk Dashboard](#splunk-dashboard)
+- [Configuration Files](#configuration-files)
+- [Extra Items](#extra-items)
+
+***
 
 ## Project Objective
 This repository contains the full documentation, configuration files, and verification for the design and implementation of a secure enterprise network. 
@@ -22,14 +37,15 @@ The network utilizes a subnetted IP addressing scheme:
 * **Site to Site:** `Site 1: 1.1.15.1/24, Site 2: 1.1.15.2/24`
 * **Splunk Enterprise:** `206.206.206.12/24`
 
----
+***
+
 ## VPN Implementation
-This section includes the site to site VPN between the two sites, remote client VPN information
+This section includes the site-to-site VPN between the two sites and remote client VPN information. VPNs are critical for secure communication over untrusted networks, ensuring that traffic between branches and remote users is encrypted and authenticated.
 
 
 
 ### Site-to-Site VPN 
-IPsec tunnel established between the FortiGate firewalls.
+An IPsec tunnel was established between the two FortiGate firewalls to securely connect Site 1 and Site 2 over the public internet. This tunnel enables secure communication between branch offices while maintaining network segmentation.
 
 
 * **Site 1 Tunnel Up**
@@ -45,7 +61,7 @@ IPsec tunnel established between the FortiGate firewalls.
 ![Site 2 Tunnel Config](images/Site2TunnelConfig.png)
 ---
 ### Client-Based VPN (Remote Access)
-The remote client tunnel uses the L2P2 protocol, which is configured in windows settings 
+The remote client tunnel uses the L2TP protocol, configured in Windows Settings, to allow remote users to securely access internal resources.
 * **Client Tunnel Up**
 ![Client Tunnel Up](images/Remote_Access_Tunnel.png)
 
@@ -61,10 +77,10 @@ The remote client tunnel uses the L2P2 protocol, which is configured in windows 
 * **Connection Properties**
 ![Connection Propertie](images/Windows_VPN_Connection_Properties.png)
 
----
+***
 
 ## Server Deployment
-Internal services hosted within the servers.
+Internal services were hosted on servers to simulate real-world enterprise workloads. 
 
 * **Apache Web Server**
   ![Apache Status](images/Apache_Status.png)
@@ -73,10 +89,10 @@ Internal services hosted within the servers.
   ![Site 2 SSH Status](images/Site2SSHstatus.png)
   ![SSH IP](images/ssh_ip.png)
   
----
+***
   
   ## VPN Connection to Servers
-
+This section validates that remote VPN users can securely access internal servers. Successful connectivity confirms that routing, firewall policies, and segmentation are working as intended.
 * **Pings**
   ![Pings](images/VPN_pinging_servers.png)
 * **SSH**
@@ -84,11 +100,10 @@ Internal services hosted within the servers.
 * **Apache2 (Webserver)**
   ![apache](images/web_server_connected.png)
 
----
+***
 
 ## Centralized Logging & Splunk
-
-All network components (Firewalls, Servers, VPNs) are configured to forward logs to a centralized Splunk Enterprise instance for monitoring and correlation.
+All network components (firewalls, servers, VPNs) forward logs to a centralized Splunk Enterprise instance for monitoring, correlation, and threat detection. Centralized logging is critical for identifying security events across the entire infrastructure from a single location.
 
 ### Syslog Configuration
 * **Site 1 FortiGate A on UDP port 514**
@@ -111,24 +126,27 @@ All network components (Firewalls, Servers, VPNs) are configured to forward logs
 ![Fortigate Syslogs](images/FortigateAlogs.png)
 
 * **Site 2 Fortigate B Syslogs** 
-![Fortigate Syslogs](images/VPNlogs.png)
+![Fortigate Syslogs](images/FortigateBlogs.png) 
 
 * **Site 1+2 VPN Syslogs**
-![Fortigate Syslogs](images/SSHlogs.png)
+![Fortigate Syslogs](images/VPNlogs.png)
 
 * **SSH Syslogs**
 ![Fortigate Syslogs](images/SSHlogs.png)
 
 * **Apache2 Syslogs (Web Server)**
 ![Apache2 Syslogs](images/apache2logs.png)
----
+
+
+***
 
 
 
 ## Attack Simulation & Detection
-To validate the security and monitoring capabilities, controlled attacks were simulated using a Kali Linux VM.
+To validate the security and monitoring capabilities, controlled attacks were simulated using a Kali Linux VM. These simulations confirm that the firewall policies, intrusion prevention, and logging are functioning correctly.
+
 ### DoS Protection
-Before an attack is made a DOS policy is made to block unwanted traffic and to tell the firewall to drop uneeded malicous traffic, and so that it does not crash when being flooded
+Before attacks were executed, a DoS policy was configured to block unwanted traffic, instruct the firewall to drop malicious packets, and prevent the firewall from crashing under flood conditions.
 
 ![DOS Policy](images/dospolicy.png)
 ![DOS Protect 1](images/dosprotect1.png)
@@ -137,42 +155,42 @@ Before an attack is made a DOS policy is made to block unwanted traffic and to t
 
 
 ### Nmap Port Scan 
-![NMAP](images/NMAPAttack.png)
-![NMAP](images/Portscandash.png)
-![NMAP](images/nmapattacksplunk.png) 
+![NMAP Attack](images/NMAPAttack.png)
+![NMAP Port Scan](images/Portscandash.png)
+![NMAP Splunk](images/nmapattacksplunk.png) 
 
 ### ICMP Attack 
-![ICMP](images/ICMPFlood.png)
-![ICMP](images/icmpfloodfortigate.png)
-![ICMP](images/icmpfloodsplunk.png) 
+![ICMP Flood](images/ICMPFlood.png)
+![ICMP in Fortigate](images/icmpfloodfortigate.png)
+![ICMP Flood in Splunk](images/icmpfloodsplunk.png) 
 
 ### UDP Attack 
-![UDP](images/UDPFlood.png)
-![UDP](images/udpfloodfortigate.png)
-![UDP](images/udpfloodsplunk.png) 
+![UDP Flood](images/UDPFlood.png)
+![UDP Flood in Fortigate](images/udpfloodfortigate.png)
+![UDP Flood in Splunk](images/udpfloodsplunk.png) 
 
----
-## Splunk Dashboard 
-Dashboard PDF 
-![UDP](images/Splunk Logs.pdf) 
+***
+## Splunk Dashboard
+The Splunk dashboard provides a centralized view of security events, allowing for rapid identification of suspicious activity and correlation across multiple data sources.
+* [Splunk Dashboard PDF](images/Splunk%20Logs.pdf)
 
 ## Configuration Files
-
+The following FortiGate configuration files are included as sanitized evidence of the implemented policies and routing.
 ### Fortigate Configuration Files Sanitized 
 * [Fortigate A Site 1](images/FG-Group15-A_7-2_1762_202605261026.conf)
 * [Fortigate B Site 2](images/FG-Group15-B_7-0_0667_202605261300.conf)
 
----
+***
 
 ## Extra Items
-These were bonus tasks that were listed in the scope
+These bonus tasks were completed beyond the required scope, demonstrating additional technical effort and automation.
 ### Fortigate Automation
 * [Fortigate Automation python](images/fortigate_automation.py)
 * [Fortigate Automation text file](images/Fortigate_automation.txt)
----
+***
 ### Splunk Rules
 * [splunk file](images/fortigate_splunk_correlation_rules.spl)
 * [splunk text file](images/fortigate_splunk_correlation_rules.txt)
----
+***
 ### Integration
-* Was not implemented with other projects    
+* Integration with other project groups was out of scope for this implementation.    

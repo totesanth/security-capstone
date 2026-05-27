@@ -152,6 +152,9 @@ Before an attack is made a DOS policy is made to block unwanted traffic and to t
 ![UDP](images/udpfloodsplunk.png) 
 
 ---
+## Splunk Dashboard 
+Dashboard PDF 
+![UDP](images/Splunk Logs.pdf) 
 
 ## Configuration Files
 

@@ -91,10 +91,10 @@ Internal services were hosted on servers to simulate real-world enterprise workl
 
 * **Apache Web Server**
   ![Apache Status](images/Apache2Status.png)
-  ![Apache Server IP](images/Apache_server_ip.png)
+  ![Apache Server IP](images/Apacheserverip.png)
 * **SSH Server**
-  ![Site 2 SSH Status](images/Site2SSHstatus.png)
-  ![SSH IP](images/ssh_ip.png)
+  ![Site 2 SSH Status](images/SSHserverstatus.png)
+  ![SSH IP](images/SSHserverip.png)
   
 ***
   
